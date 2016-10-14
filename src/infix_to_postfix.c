@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <string.h>
+#include "stack.h"
 #include "infix_to_postfix.h"
 
 bool is_variable(char value);
@@ -59,11 +60,4 @@ char char_stack_peek(char *stack) {
   }
 
   return stack[top];
-}
-
-void char_stack_push(char *stack, int value) {
-  char append[2];
-  append[0] = value;
-  append[1] = '\0';
-  strcat(stack, append);
 }
