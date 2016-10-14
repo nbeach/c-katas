@@ -1,0 +1,26 @@
+#include <stdlib.h>
+#include <stdbool.h>
+#include <check.h>
+
+#include "../src/stack.h"
+
+START_TEST (char_stack_push_adds_characters_to_top_of_stack)
+{
+  char stack[5];
+  stack[0] = 'a';
+  stack[1] = 'b';
+  stack[2] = '\0';
+  char_stack_push(stack, 'c');
+  ck_assert_str_eq("abc", stack);
+}
+END_TEST
+
+Suite * stack_suite() {
+  Suite *s = suite_create("stack_test");
+  TCase *tc_core = tcase_create("Core");
+
+  tcase_add_test(tc_core, char_stack_push_adds_characters_to_top_of_stack);
+
+  suite_add_tcase(s, tc_core);
+  return s;
+}

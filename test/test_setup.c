@@ -1,12 +1,15 @@
 #include <check.h>
+
 #include "infix_to_postfix_test.c"
+#include "stack_test.c"
 
 int run_suites(Suite* suites[], int count);
 
 int main() {
-  int suites = 1;
+  int suites = 2;
   Suite* s[suites];
   s[0] = infix_postfix_suite();
+  s[1] = stack_suite();
 
   int faliures = run_suites(s, suites);
   return (faliures == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
