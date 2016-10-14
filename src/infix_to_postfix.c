@@ -4,9 +4,8 @@
 #include "infix_to_postfix.h"
 
 bool is_variable(char value);
-void char_stack_push(char *stack, int value);
 char char_stack_pop(char *stack);
-char char_stack_peek(char *stack);
+
 void clear_string(char *string);
 
 void infix_to_postfix(char *infix, char *postfix) {
@@ -51,13 +50,4 @@ char char_stack_pop(char *stack) {
   char value = stack[top];
   stack[top] = '\0';
   return value;
-}
-
-char char_stack_peek(char *stack) {
-  int top = -1;
-  while(stack[top + 1] != '\0') {
-    top++;
-  }
-
-  return stack[top];
 }
