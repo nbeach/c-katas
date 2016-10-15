@@ -19,7 +19,8 @@ void infix_to_postfix(char *infix, char *postfix) {
     if(is_variable(value)) {
       char_stack_push(postfix, value);
     } else {
-      if(char_stack_peek(operators) == '*') {
+      char stack_top = char_stack_peek(operators);
+      if(stack_top == '*' || stack_top == '/') {
           char operator = char_stack_pop(operators);
           char_stack_push(postfix, operator);
       }
