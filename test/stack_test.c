@@ -36,6 +36,19 @@ START_TEST (char_stack_peek_returns_the_value_on_top_of_the_stack)
 }
 END_TEST
 
+START_TEST (char_stack_peek_does_not_modify_the_stack)
+{
+  char stack[5];
+  stack[0] = 'a';
+  stack[1] = 'b';
+  stack[2] = '\0';
+  char_stack_peek(stack);
+  ck_assert_int_eq('a', stack[0]);
+  ck_assert_int_eq('b', stack[1]);
+  ck_assert_int_eq('\0', stack[2]);
+}
+END_TEST
+
 START_TEST (char_stack_pop_returns_the_value_on_top_of_the_stack)
 {
   char stack[5];
@@ -62,9 +75,10 @@ Suite * stack_suite() {
   TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, char_stack_push_adds_characters_to_top_of_stack);
-  tcase_add_test(tc_core, char_stack_push_adds_terminator_past_end_of_stack)
-  ;
+  tcase_add_test(tc_core, char_stack_push_adds_terminator_past_end_of_stack);
+
   tcase_add_test(tc_core, char_stack_peek_returns_the_value_on_top_of_the_stack);
+  tcase_add_test(tc_core, char_stack_peek_does_not_modify_the_stack);
 
   tcase_add_test(tc_core, char_stack_pop_returns_the_value_on_top_of_the_stack);
   tcase_add_test(tc_core, char_stack_pop_removes_the_value_on_top_of_the_stack);
