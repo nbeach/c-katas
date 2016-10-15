@@ -14,10 +14,10 @@ void infix_to_postfix(char *infix, char *postfix) {
   operators[0] = '\0';
 
   for(int i = 0; i < length; i++) {
-    char value = infix[i];
+    char symbol = infix[i];
 
-    if(is_variable(value)) {
-      char_stack_push(postfix, value);
+    if(is_variable(symbol)) {
+      char_stack_push(postfix, symbol);
     } else {
       char stack_top = char_stack_peek(operators);
       if(stack_top == '*' || stack_top == '/') {
@@ -25,7 +25,7 @@ void infix_to_postfix(char *infix, char *postfix) {
           char_stack_push(postfix, operator);
       }
 
-      char_stack_push(operators, value);
+      char_stack_push(operators, symbol);
     }
   }
 
