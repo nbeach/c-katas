@@ -8,7 +8,7 @@ START_TEST (infix_to_postfix_converts_expressions_with_only_addition)
 {
   char actual[10];
   infix_to_postfix("a+b+c", actual);
-  ck_assert_str_eq("abc++", actual);
+  ck_assert_str_eq("ab+c+", actual);
 }
 END_TEST
 
@@ -16,7 +16,7 @@ START_TEST (infix_to_postfix_converts_expressions_with_only_subtraction)
 {
   char actual[10];
   infix_to_postfix("a-b-c", actual);
-  ck_assert_str_eq("abc--", actual);
+  ck_assert_str_eq("ab-c-", actual);
 }
 END_TEST
 
@@ -44,7 +44,7 @@ Suite * infix_postfix_suite() {
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_subtraction);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_multiplication);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_division);
-
+  
   suite_add_tcase(s, tc_core);
   return s;
 }
