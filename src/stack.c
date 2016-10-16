@@ -22,6 +22,10 @@ char char_stack_pop(char *stack) {
     top++;
   }
 
+  if(top == -1) {
+    return '\0';
+  }
+
   char value = stack[top];
   stack[top] = '\0';
   return value;
