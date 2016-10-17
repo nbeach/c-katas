@@ -47,8 +47,8 @@ END_TEST
 START_TEST (infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence)
 {
   char actual[10];
-  infix_to_postfix("a+b-c*d/e", actual);
-  ck_assert_str_eq("ab+cd*e/-", actual);
+  infix_to_postfix("a^b+c-d*e/f", actual);
+  ck_assert_str_eq("ab^c+de*f/-", actual);
 }
 END_TEST
 
