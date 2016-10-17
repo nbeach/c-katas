@@ -36,6 +36,14 @@ START_TEST (infix_to_postfix_converts_expressions_with_only_division)
 }
 END_TEST
 
+START_TEST (infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence)
+{
+  char actual[10];
+  infix_to_postfix("a+b-c*d/e", actual);
+  ck_assert_str_eq("ab+cd*e/-", actual);
+}
+END_TEST
+
 Suite * infix_postfix_suite() {
   Suite *s = suite_create("infix_to_postfix_test");
   TCase *tc_core = tcase_create("Core");
@@ -44,7 +52,8 @@ Suite * infix_postfix_suite() {
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_subtraction);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_multiplication);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_division);
-  
+  tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence);
+
   suite_add_tcase(s, tc_core);
   return s;
 }

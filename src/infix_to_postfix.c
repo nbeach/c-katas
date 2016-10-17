@@ -21,10 +21,11 @@ void infix_to_postfix(char *infix, char *postfix) {
 
     if(is_variable(symbol)) {
       char_stack_push(postfix, symbol);
+
     } else if(is_operator(symbol)) {
       char stack_top = char_stack_peek(operators);
 
-      if(get_operator_precedence(symbol) == get_operator_precedence(stack_top)) {
+      if(get_operator_precedence(symbol) >= get_operator_precedence(stack_top)) {
           char operator = char_stack_pop(operators);
           char_stack_push(postfix, operator);
       }
@@ -33,7 +34,12 @@ void infix_to_postfix(char *infix, char *postfix) {
     }
   }
 
-  strcat(postfix, operators);
+  char operator;
+  operator = char_stack_pop(operators);
+  while(operator != '\0') {
+    char_stack_push(postfix, operator);
+    operator = char_stack_pop(operators);
+  }
 }
 
 bool is_variable(char value) {
