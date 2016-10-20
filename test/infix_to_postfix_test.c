@@ -60,7 +60,13 @@ START_TEST (infix_to_postfix_converts_expressions_with_parenthesis)
 }
 END_TEST
 
-
+START_TEST (infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence_and_parenthesis)
+{
+  char actual[10];
+  infix_to_postfix("a*(b+c*d)+e", actual);
+  ck_assert_str_eq("abcd*+*e+", actual);
+}
+END_TEST
 
 Suite * infix_postfix_suite() {
   Suite *s = suite_create("infix_to_postfix_test");
@@ -73,6 +79,7 @@ Suite * infix_postfix_suite() {
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_only_exponents);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence);
   tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_parenthesis);
+  tcase_add_test(tc_core, infix_to_postfix_converts_expressions_with_operators_of_mixed_precedence_and_parenthesis);
 
   suite_add_tcase(s, tc_core);
   return s;
