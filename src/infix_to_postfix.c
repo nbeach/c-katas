@@ -24,13 +24,22 @@ void infix_to_postfix(char *infix, char *postfix) {
 
     } else if(is_operator(symbol)) {
       char stack_top = char_stack_peek(operators);
-
       if(get_operator_precedence(symbol) >= get_operator_precedence(stack_top)) {
           char operator = char_stack_pop(operators);
           char_stack_push(postfix, operator);
       }
-
       char_stack_push(operators, symbol);
+
+    } else if(symbol == '(') {
+      char_stack_push(operators, symbol);
+
+    } else if(symbol == ')') {
+      char stack_top = char_stack_pop(operators);
+      while(stack_top != '(') {
+        char_stack_push(postfix, stack_top);
+        stack_top = char_stack_pop(operators);
+      }
+
     }
   }
 
@@ -47,20 +56,21 @@ bool is_variable(char value) {
 }
 
 bool is_operator(char value) {
-    return value >= '+'
-    || value <= '-'
-    || value <= '*'
-    || value <= '/';
+    return value == '^'
+    || value == '+'
+    || value == '-'
+    || value == '*'
+    || value == '/';
 }
 
 int get_operator_precedence(char operator) {
-  int precedence = 0;
+  int precedence = 100;
 
   if(operator == '^') precedence = 1;
   else if(operator == '*') precedence = 2;
   else if(operator == '/') precedence = 2;
   else if(operator == '+') precedence = 3;
-  else if(operator == '-') precedence = 4;
+  else if(operator == '-') precedence = 3;
 
   return precedence;
 }
